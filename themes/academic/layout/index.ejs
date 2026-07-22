@@ -1,0 +1,101 @@
+<!-- Homepage: Academic Profile -->
+
+<!-- Profile Section -->
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+  <tr>
+    <td width="30%" valign="top" align="center">
+      <img src="<%= url_for('/images/avatar.svg') %>" width="100%" style="border-radius:15px;max-width:250px;">
+      <p align="center">
+        | <a href="mailto:202300202023@stumail.sztu.edu.cn">Email</a> |
+        <a href="https://github.com/chenlockyer">GitHub</a> |
+      </p>
+    </td>
+    <td width="70%" valign="top" align="justify">
+      <p align="center" style="font-size:32px;font-weight:400;margin:10px 0 20px 0;">
+        <pageheading>陈洛嘉</pageheading>
+      </p>
+      <p>深圳技术大学计算机科学与技术专业本科生（2023-2027），专注于<strong>机器人系统</strong>、<strong>强化学习</strong>和<strong>多模态 AI</strong>。热爱将算法变为实物——让机器人动起来、理解世界、与人交互。</p>
+      <p><strong>目标：</strong>让机器人真正走进日常生活，做有用的、可落地的机器人系统。</p>
+      <p><strong>研究方向：</strong>人形机器人全身运动控制、强化学习 Sim2Real、多机器人集群系统。</p>
+    </td>
+  </tr>
+</table>
+
+<hr>
+
+<!-- News Section -->
+<% if (site.data && site.data.news && site.data.news.length) { %>
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="10">
+  <tr><td><sectionheading>&nbsp;News</sectionheading></td></tr>
+</table>
+<ul>
+  <% for (var ni = 0; ni < site.data.news.length; ni++) { %>
+    <li><strong>[<%= site.data.news[ni].date %>]</strong> <%- site.data.news[ni].text %></li>
+  <% } %>
+</ul>
+<hr>
+<% } %>
+
+<!-- Projects Section -->
+<% if (site.data && site.data.projects && site.data.projects.length) { %>
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="10">
+  <tr><td><sectionheading>&nbsp;项目经验</sectionheading></td></tr>
+</table>
+
+<% for (var pi = 0; pi < site.data.projects.length; pi++) { %>
+<% var proj = site.data.projects[pi]; %>
+
+  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
+    <tr>
+      <td width="40%" valign="top" align="center">
+        <div style="background:linear-gradient(135deg,#eff6ff,#bfdbfe);border-radius:15px;width:90%;height:120px;display:flex;align-items:center;justify-content:center;color:#3b82f6;font-weight:600;font-size:32px;">
+          <%= proj.name.charAt(0) %>
+        </div>
+      </td>
+      <td width="60%" valign="top">
+        <p>
+          <heading>
+            <% if (proj.link) { %><a href="<%= proj.link %>"><%= proj.name %></a>
+            <% } else { %><%= proj.name %><% } %>
+          </heading>
+        </p>
+        <p><%= proj.desc %></p>
+        <p>
+          <% for (var tj = 0; tj < (proj.tech || []).length; tj++) { %>
+            <span class="tag"><%= proj.tech[tj] %></span>
+          <% } %>
+        </p>
+        <p style="color:#999;font-size:14px;"><%= proj.date %></p>
+      </td>
+    </tr>
+  </table>
+<% } %>
+
+<hr>
+<% } %>
+
+<!-- Recent Blog Posts -->
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="10">
+  <tr><td><sectionheading>&nbsp;最新文章</sectionheading></td></tr>
+</table>
+
+<% if (page.posts && page.posts.length) { %>
+  <% page.posts.each(function(post) { %>
+    <p>
+      <a href="<%= url_for(post.path) %>"><heading><%= post.title %></heading></a><br>
+      <span style="color:#999;font-size:14px;"><%= date(post.date, 'YYYY-MM-DD') %></span>
+      <% if (post.categories && post.categories.length) { %>
+        <span style="color:#6b7280;font-size:14px;"> · <%= post.categories.map(function(c){return c.name}).join(', ') %></span>
+      <% } %>
+    </p>
+  <% }); %>
+  <% if (page.total > 1) { %>
+    <p style="text-align:center;margin-top:20px;">
+      <% if (page.prev) { %><a href="<%= url_for(page.prev_link) %>">← 上一页</a> &nbsp;<% } %>
+      <span style="color:#999;">第 <%= page.current %> / <%= page.total %> 页</span>
+      <% if (page.next) { %>&nbsp; <a href="<%= url_for(page.next_link) %>">下一页 →</a><% } %>
+    </p>
+  <% } %>
+<% } else { %>
+  <p style="color:#999;">暂无文章，马上会写第一篇。</p>
+<% } %>

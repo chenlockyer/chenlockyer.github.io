@@ -1,0 +1,28 @@
+<!-- Archive Page -->
+<p align="center" style="font-size:28px;font-weight:600;margin:10px 0 5px 0;">
+  <pageheading><%= page.title || '归档' %></pageheading>
+</p>
+<hr>
+
+<% if (page.posts && page.posts.length > 0) { %>
+  <% page.posts.each(function(post) { %>
+    <p>
+      <a href="<%= url_for(post.path) %>"><heading><%= post.title %></heading></a><br>
+      <span style="color:#999;font-size:14px;"><%= date(post.date, 'YYYY-MM-DD') %></span>
+      <% if (post.categories && post.categories.length) { %>
+         · <span style="color:#6b7280;font-size:14px;"><%= post.categories.map(function(c){return c.name}).join(', ') %></span>
+      <% } %>
+      <br>
+      <%= post.description || '' %>
+    </p>
+  <% }); %>
+  <% if (page.total > 1) { %>
+    <p style="text-align:center;margin-top:20px;">
+      <% if (page.prev) { %><a href="<%= url_for(page.prev_link) %>">← 上一页</a> &nbsp;<% } %>
+      <span style="color:#999;">第 <%= page.current %> / <%= page.total %> 页</span>
+      <% if (page.next) { %>&nbsp; <a href="<%= url_for(page.next_link) %>">下一页 →</a><% } %>
+    </p>
+  <% } %>
+<% } else { %>
+  <p style="color:#999;">暂无文章。</p>
+<% } %>

@@ -1,0 +1,21 @@
+<!-- Blog Post Page -->
+<p align="center" style="font-size:28px;font-weight:600;margin:10px 0 5px 0;">
+  <pageheading><%= page.title %></pageheading>
+</p>
+<p align="center" style="color:#999;font-size:14px;">
+  <%= date(page.date, 'YYYY-MM-DD') %>
+  <% if (page.categories && page.categories.length) { %>
+     · 分类: <%= page.categories.map(function(c){ return '<a href="' + url_for(c.path) + '">' + c.name + '</a>' }).join(', ') %>
+  <% } %>
+  <% if (page.tags && page.tags.length) { %>
+     · 标签: <%= page.tags.map(function(t){ return '<a href="' + url_for(t.path) + '">' + t.name + '</a>' }).join(', ') %>
+  <% } %>
+</p>
+<hr>
+<div class="post-content">
+  <%- page.content %>
+</div>
+<hr>
+<p align="center">
+  <a href="/">← 返回首页</a>
+</p>

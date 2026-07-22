@@ -1,0 +1,154 @@
+/* Academic Theme — Design Credits: Jon Barron, Tairan He */
+a {
+  color: #1772d0;
+  text-decoration: none;
+}
+a:focus, a:hover {
+  color: #f09228;
+  text-decoration: none;
+}
+body, td, th {
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+}
+heading {
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+}
+pageheading {
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+}
+sectionheading {
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1f2937;
+}
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+strong {
+  font-family: 'Titillium Web', Verdana, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+ul li {
+  padding: 4px 0;
+  line-height: 1.6;
+}
+ul li::before {
+  content: "•";
+  color: #1772d0;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+.tag {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1772d0;
+  border: 1px solid #bfdbfe;
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 13px;
+  margin: 2px 3px;
+  white-space: nowrap;
+}
+.tag:hover {
+  background: #1772d0;
+  color: #fff;
+}
+
+/* Post Content */
+.post-content p {
+  line-height: 1.8;
+  margin: 12px 0;
+}
+.post-content img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+.post-content blockquote {
+  border-left: 3px solid #1772d0;
+  padding: 8px 16px;
+  margin: 16px 0;
+  background: #f9fafb;
+  color: #555;
+}
+.post-content code {
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+.post-content pre {
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+}
+.post-content pre code {
+  background: none;
+  padding: 0;
+}
+.post-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 16px 0;
+}
+.post-content th, .post-content td {
+  border: 1px solid #e5e7eb;
+  padding: 8px 12px;
+  text-align: left;
+}
+.post-content th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+/* Timeline for About page */
+.timeline {
+  position: relative;
+  padding-left: 24px;
+  border-left: 2px solid #1772d0;
+  margin: 16px 0;
+}
+.timeline-item {
+  margin-bottom: 20px;
+}
+.timeline-item .date {
+  font-size: 14px;
+  color: #1772d0;
+  font-weight: 600;
+}
+.timeline-item .content {
+  margin-top: 4px;
+  line-height: 1.7;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  table[width="900"] {
+    width: 100% !important;
+  }
+  td[width="30%"], td[width="70%"], td[width="40%"], td[width="60%"] {
+    display: block;
+    width: 100% !important;
+  }
+  body {
+    font-size: 15px;
+  }
+}

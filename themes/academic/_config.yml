@@ -1,0 +1,36 @@
+# Academic Theme Config
+# Clean academic homepage style
+
+# Navigation menu
+menu:
+  首页: /
+  归档: /archives/
+  关于: /about/
+
+# Homepage profile settings
+profile:
+  photo: /images/avatar.jpg
+  name: 陈洛嘉
+  subtitle: '机器人工程师 · 探索智能机器的边界'
+  # Links displayed below the photo
+  links:
+    Email: 'mailto:202300202023@stumail.sztu.edu.cn'
+    GitHub: 'https://github.com/chenlockyer'
+    # CV: /about/
+    # Google Scholar: ''
+    # LinkedIn: ''
+
+# Bio paragraphs (each line is a paragraph on the homepage right column)
+bio:
+  - '深圳技术大学计算机科学与技术专业本科生（2023-2027），专注于**机器人系统**、**强化学习**和**多模态 AI**。热爱将算法变为实物——让机器人动起来、理解世界、与人交互。'
+  - '我的目标：让机器人真正走进日常生活，做有用的、可落地的机器人系统。'
+
+# Sections to show on homepage
+sections:
+  news: true
+  projects: true
+  recent_posts: true
+
+# Social links in footer
+social:
+  GitHub: https://github.com/chenlockyer

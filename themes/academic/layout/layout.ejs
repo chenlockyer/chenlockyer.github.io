@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Hexo">
+  <title><%= page.title ? page.title + ' | ' + config.title : config.title %></title>
+  <meta name="description" content="<%= page.description || config.description %>">
+  <link rel="icon" href="<%= url_for('/images/favicon.ico') %>">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="<%= url_for('/css/style.css') %>">
+  <% if (typeof inject_head !== 'undefined') { %><%- inject_head %><% } %>
+</head>
+<body>
+  <table width="900" border="0" align="center" cellspacing="0" cellpadding="20">
+    <tr><td>
+      <%- body %>
+      <hr>
+      <p align="center" style="color:#999;font-size:14px;">
+        <small>© 2026 <%= config.author %></small>
+      </p>
+    </td></tr>
+  </table>
+  <script src="<%= url_for('/js/main.js') %>"></script>
+  <% if (typeof inject_bottom !== 'undefined') { %><%- inject_bottom %><% } %>
+</body>
+</html>

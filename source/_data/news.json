@@ -1,0 +1,14 @@
+[
+  {
+    "date": "2026-05",
+    "text": "交付多机器人集群控制系统给 3 家客户，提供售后维护支持"
+  },
+  {
+    "date": "2026-01",
+    "text": "完成 G1 人形机器人远程操控平台开发，集成图传、导航与遥操作"
+  },
+  {
+    "date": "2025-11",
+    "text": "PR #121 被 <a href='https://github.com/unitreerobotics/unitree_rl_lab'>unitree_rl_lab</a> 官方仓库合并，支持 G1 23dof 机器人类型"
+  }
+]
