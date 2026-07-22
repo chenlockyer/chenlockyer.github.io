@@ -19,22 +19,24 @@
 <!-- Profile Section -->
 <!-- Name centered on top -->
 <p align="center" style="font-size:36px;font-weight:400;margin:0 0 10px 0;">
-  <pageheading>陈洛嘉</pageheading>
+  <pageheading>陈洛嘉 Chen Lockyer</pageheading>
 </p>
 
 <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
   <tr>
     <td width="30%" valign="top" align="center">
-      <img src="/images/avatar.svg" width="100%" style="border-radius:15px;max-width:250px;">
+      <img src="/images/avatar.jpg" width="100%" style="border-radius:15px;max-width:250px;">
       <p align="center">
         | <a href="mailto:202300202023@stumail.sztu.edu.cn">Email</a> |
         <a target="_blank" rel="noopener" href="https://github.com/chenlockyer">GitHub</a> |
+        <a target="_blank" rel="noopener" href="https://space.bilibili.com/525025986">Bilibili</a> |
+
       </p>
     </td>
     <td width="70%" valign="top" align="justify">
-      <p>深圳技术大学计算机科学与技术专业本科生（2023-2027），专注于<strong>机器人系统</strong>、<strong>强化学习</strong>和<strong>多模态 AI</strong>。热爱将算法变为实物——让机器人动起来、理解世界、与人交互。</p>
+      <p>我是深圳技术大学计算机科学与技术专业的本科生（2023-2027），专注于<strong>人形机器人</strong>、<strong>强化学习</strong>和<strong>多模态 AI</strong>。热爱将算法变为实物——让机器人动起来、理解世界、与人交互。</p>
       <p><strong>目标：</strong>让机器人真正走进日常生活，做有用的、可落地的机器人系统。</p>
-      <p><strong>研究方向：</strong>人形机器人全身运动控制、强化学习 Sim2Real、多机器人集群系统。</p>
+      <p><strong>研究方向：</strong>人形机器人全身运动控制（WBC）、强化学习、多机器人集群系统。</p>
     </td>
   </tr>
 </table>
@@ -48,11 +50,11 @@
 </table>
 <ul>
   
-    <li><strong>[2026-05]</strong> 交付多机器人集群控制系统给 3 家客户，提供售后维护支持</li>
+    <li><strong>[2026-05]</strong> 交付宇树G1机器人集群控制系统给全国多家客户，支持宇树官方舞蹈动作，已广泛应用于展览、演出等场景</li>
   
-    <li><strong>[2026-01]</strong> 完成 G1 人形机器人远程操控平台开发，集成图传、导航与遥操作</li>
+    <li><strong>[2026-04]</strong> 完成 G1 人形机器人导览员系统的开发和部署，支持建图导航、多语言语音交互、动作控制</li>
   
-    <li><strong>[2025-11]</strong> PR #121 被 <a target="_blank" rel="noopener" href='https://github.com/unitreerobotics/unitree_rl_lab'>unitree_rl_lab</a> 官方仓库合并，支持 G1 23dof 机器人类型</li>
+    <li><strong>[2026-04]</strong> 提交 PR #121 至宇树 <a target="_blank" rel="noopener" href='https://github.com/unitreerobotics/unitree_rl_lab'>unitree_rl_lab</a> 官方仓库，支持 G1 23dof 型号的强化学习训练与部署</li>
   
 </ul>
 <hr>
@@ -70,15 +72,53 @@
   <table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
     <tr>
       <td width="40%" valign="top" align="center">
-        <div style="background:linear-gradient(135deg,#eff6ff,#bfdbfe);border-radius:15px;width:90%;height:120px;display:flex;align-items:center;justify-content:center;color:#3b82f6;font-weight:600;font-size:32px;">
-          多
-        </div>
+        
+          <div style="background:linear-gradient(135deg,#eff6ff,#bfdbfe);border-radius:15px;width:90%;height:120px;display:flex;align-items:center;justify-content:center;color:#3b82f6;font-weight:600;font-size:32px;">
+            人
+          </div>
+        
       </td>
       <td width="60%" valign="top">
         <p>
           <heading>
-            <a target="_blank" rel="noopener" href="https://github.com/chenlockyer">多机器人集群控制系统</a>
+            <a target="_blank" rel="noopener" href="https://github.com/unitreerobotics/unitree_rl_lab/pull/121">人形机器人 RL 全身运动控制</a>
             
+          </heading>
+        </p>
+        <p>基于 BeyondMimic + Isaac Lab 的 G1 舞蹈 RL 训练，已提交官方 PR </p>
+        <p>
+          
+            <span class="tag">Python</span>
+          
+            <span class="tag">PyTorch</span>
+          
+            <span class="tag">Isaac Lab</span>
+          
+            <span class="tag">MuJoCo</span>
+          
+            <span class="tag">C++</span>
+          
+        </p>
+        <p style="color:#999;font-size:14px;">2026.4</p>
+      </td>
+    </tr>
+  </table>
+
+
+
+  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
+    <tr>
+      <td width="40%" valign="top" align="center">
+        
+          <div style="width:90%;max-width:300px;border-radius:15px;overflow:hidden;aspect-ratio:16/9;">
+            <img src="/images/projects/multi-robot.jpg" width="100%" height="100%" style="object-fit:cover;display:block;">
+          </div>
+        
+      </td>
+      <td width="60%" valign="top">
+        <p>
+          <heading>
+            多机器人集群控制系统
           </heading>
         </p>
         <p>通过 TCP + NTP 实现多台 G1 人形机器人实时群控同步舞蹈，已交付 3 家客户</p>
@@ -103,15 +143,16 @@
   <table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
     <tr>
       <td width="40%" valign="top" align="center">
-        <div style="background:linear-gradient(135deg,#eff6ff,#bfdbfe);border-radius:15px;width:90%;height:120px;display:flex;align-items:center;justify-content:center;color:#3b82f6;font-weight:600;font-size:32px;">
-          G
-        </div>
+        
+          <div style="background:linear-gradient(135deg,#eff6ff,#bfdbfe);border-radius:15px;width:90%;height:120px;display:flex;align-items:center;justify-content:center;color:#3b82f6;font-weight:600;font-size:32px;">
+            G
+          </div>
+        
       </td>
       <td width="60%" valign="top">
         <p>
           <heading>
-            <a target="_blank" rel="noopener" href="https://github.com/chenlockyer">G1 机器人远程操控平台</a>
-            
+            G1 机器人导览员
           </heading>
         </p>
         <p>基于 ROS + Flask + React 的 G1 机器人远程遥操作与状态监控系统</p>
@@ -138,49 +179,17 @@
   <table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
     <tr>
       <td width="40%" valign="top" align="center">
-        <div style="background:linear-gradient(135deg,#eff6ff,#bfdbfe);border-radius:15px;width:90%;height:120px;display:flex;align-items:center;justify-content:center;color:#3b82f6;font-weight:600;font-size:32px;">
-          人
-        </div>
+        
+          <div style="background:linear-gradient(135deg,#eff6ff,#bfdbfe);border-radius:15px;width:90%;height:120px;display:flex;align-items:center;justify-content:center;color:#3b82f6;font-weight:600;font-size:32px;">
+            腾
+          </div>
+        
       </td>
       <td width="60%" valign="top">
         <p>
           <heading>
-            <a target="_blank" rel="noopener" href="https://github.com/unitreerobotics/unitree_rl_lab">人形机器人 RL 全身运动控制</a>
+            <a target="_blank" rel="noopener" href="https://github.com/chenlockyer/mini-project">腾讯mini项目：多模态大模型Text-to-Image自动化评测</a>
             
-          </heading>
-        </p>
-        <p>基于 BeyondMimic + Isaac Lab 的 G1 舞蹈 RL 训练，PR 已被官方合并</p>
-        <p>
-          
-            <span class="tag">Python</span>
-          
-            <span class="tag">PyTorch</span>
-          
-            <span class="tag">Isaac Lab</span>
-          
-            <span class="tag">MuJoCo</span>
-          
-            <span class="tag">C++</span>
-          
-        </p>
-        <p style="color:#999;font-size:14px;">2025.09</p>
-      </td>
-    </tr>
-  </table>
-
-
-
-  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
-    <tr>
-      <td width="40%" valign="top" align="center">
-        <div style="background:linear-gradient(135deg,#eff6ff,#bfdbfe);border-radius:15px;width:90%;height:120px;display:flex;align-items:center;justify-content:center;color:#3b82f6;font-weight:600;font-size:32px;">
-          M
-        </div>
-      </td>
-      <td width="60%" valign="top">
-        <p>
-          <heading>
-            MLLM 图像自动标注系统
           </heading>
         </p>
         <p>多模态大模型驱动的 Text-to-Image 自动标注质量评估 pipeline</p>
