@@ -97,6 +97,13 @@ description: 文章简介（显示在首页列表）
 
 将照片放入 `source/images/avatar.jpg`（建议 400×400 以上，正方形），或替换 `avatar.svg`。
 
+## 🖼️ 项目展示图片
+
+1. 截图放到 `source/images/projects/`，命名用小写英文 + 短横线，如 `multi-robot.jpg`
+2. 在 `source/_data/projects.json` 对应项目里加 `"image": "multi-robot.jpg"`（可选，不加则显示占位符）
+3. 截图建议 **800×450** 以上（16:9），模板会自动裁剪统一显示，无需手动精确裁切
+4. 文件格式推荐 JPG，单张控制在 500KB 以内即可
+
 ## 🚢 部署
 
 每次 `git push` 到 `main` 分支，GitHub Actions 自动构建并部署到 GitHub Pages，无需手动操作。

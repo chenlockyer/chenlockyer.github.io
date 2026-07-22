@@ -1,14 +1,14 @@
 [
   {
     "date": "2026-05",
-    "text": "交付多机器人集群控制系统给 3 家客户，提供售后维护支持"
+    "text": "交付宇树G1机器人集群控制系统给全国多家客户，支持宇树官方舞蹈动作，已广泛应用于展览、演出等场景"
   },
   {
-    "date": "2026-01",
-    "text": "完成 G1 人形机器人远程操控平台开发，集成图传、导航与遥操作"
+    "date": "2026-04",
+    "text": "完成 G1 人形机器人导览员系统的开发和部署，支持建图导航、多语言语音交互、动作控制"
   },
   {
-    "date": "2025-11",
-    "text": "PR #121 被 <a href='https://github.com/unitreerobotics/unitree_rl_lab'>unitree_rl_lab</a> 官方仓库合并，支持 G1 23dof 机器人类型"
+    "date": "2026-04",
+    "text": "提交 PR #121 至宇树 <a href='https://github.com/unitreerobotics/unitree_rl_lab'>unitree_rl_lab</a> 官方仓库，支持 G1 23dof 型号的强化学习训练与部署"
   }
 ]
