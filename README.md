@@ -1,117 +1,113 @@
-# 陈洛嘉的个人主页
+# 陈洛嘉 · 个人主页
 
-> 机器人工程师 · 探索智能机器的边界
+> 把人形机器人从论文搬到现场
 
-基于 [Hexo](https://hexo.io/) 的学术风格个人主页，部署于 [GitHub Pages](https://pages.github.com/)。
+线上：https://chenlockyer.github.io/
+工作室：https://chenlockyer.github.io/studio/ （双向互链）
 
-## 🚀 快速开始
+Hexo + 自建 academic 主题，GitHub Actions 自动部署到 `gh-pages`。
+
+## 版式方向
+
+`quiet-instrument` —— 克制本身就是声明。单轴排版、五级字阶、纸白底、单一强调色（G1 面罩 LED 蓝）。
+
+页面上每一张图都是**真机实拍或真实产品界面截图**，没有示意图、没有渲染图、没有 AI 生成图。
+
+## 目录
+
+```
+source/
+├── _data/
+│   ├── projects.json      项目数据（首页「交付过的」与项目页都读它）
+│   └── news.json          保留但当前未使用
+├── _posts/                文章
+├── about/index.md         履历内容（版式由 themes/academic/layout/cv.ejs 控制）
+├── projects/index.md      项目页（layout: projects）
+├── friends/index.md       工具与链接页
+├── images/
+│   ├── avatar.jpg         真实证件照（来自简历 PDF）
+│   ├── site/              真机实拍
+│   ├── projects/          真实界面截图
+│   ├── ui/                产品界面截图
+│   └── video/             现场视频
+└── robots.txt
+
+themes/academic/
+├── _config.yml            导航、个人资料、事实数字、联系方式
+├── layout/
+│   ├── layout.ejs         全站骨架（顶栏 / 页脚 / SEO / JSON-LD）
+│   ├── index.ejs          首页
+│   ├── post.ejs           文章页
+│   ├── page.ejs           通用页（支持 page_class / lead）
+│   ├── cv.ejs             履历页
+│   ├── projects.ejs       项目页
+│   └── archive.ejs        归档页
+└── source/
+    ├── css/style.css      全部样式（token 在顶部）
+    ├── js/main.js         进场动效 + 账本侧预览
+    └── fonts/             自托管字体（STIX Two Text + Noto Serif SC 子集）
+```
+
+## 本地开发
 
 ```bash
-# 克隆仓库
-git clone https://github.com/chenlockyer/chenlockyer.github.io.git
-cd chenlockyer.github.io
-
-# 安装依赖
 npm install
-
-# 本地预览
-hexo server
-# 访问 http://localhost:4000
-
-# 构建静态文件
-hexo generate
+npx hexo server        # http://localhost:4000
+npx hexo generate
 ```
 
-## 📁 项目结构
+## 两个必须知道的坑
 
+### 1. 字体是子集化的
+
+加了新字（尤其写新文章）后必须重建子集，否则新字会**静默回退成系统字体**，页面上只是「这个字有点怪」。
+
+字符集取 `public/` 里所有 HTML 的实际用字 ∪ GB2312 一级汉字（3755 字），
+这样以后写新文章落在一级字范围内就不用重建。
+
+字体源文件在 `.tmp-assets/fonts/`（NotoSerifSC-Regular.otf / SemiBold.otf），不在仓库里。
+
+### 2. 文章 `date` 必须带时间
+
+Hexo 用 `moment()` 按**解析机本地时区**解释 `date`，而 `_config.yml` 里的 `timezone` 不参与 permalink 计算。
+CI 跑在 UTC、本地是 UTC+8，只写 `date: 2026-07-22` 会让两边生成**差一天**的路径：
+
+| | 生成路径 |
+|---|---|
+| 本地 (+8) | `/2026/07/22/2026-07-22-hello-world/` |
+| CI (UTC) | `/2026/07/21/2026-07-22-hello-world/` |
+
+结果就是站内链接在线上全 404。正确写法：
+
+```yaml
+date: 2026-07-22 12:00:00
 ```
-chenlockyer.github.io/
-├── source/                    # 源文件
-│   ├── _data/                 # 数据文件（驱动首页内容）
-│   │   ├── news.json          # News 动态列表
-│   │   └── projects.json      # 项目展示数据
-│   ├── _posts/                # 博客文章（Markdown）
-│   ├── about/index.md         # 关于页
-│   ├── projects/index.md      # 项目展示页
-│   ├── friends/index.md       # 友链页
-│   └── images/                # 图片资源
-├── themes/academic/           # 自定义学术主题
-│   ├── layout/                # EJS 模板
-│   │   ├── index.ejs          # 首页（个人主页布局）
-│   │   ├── post.ejs           # 文章页
-│   │   ├── page.ejs           # 通用页面
-│   │   └── archive.ejs        # 归档页
-│   └── source/css/style.css   # 样式
-├── _config.yml                # 站点配置
-└── .github/workflows/pages.yml # GitHub Actions 部署
+
+## 验收
+
+```bash
+node "C:\Users\11051\.dsh\skills\design-taste-frontend\scripts\inspect.mjs" <url 或 index.html>
+node "C:\Users\11051\.dsh\skills\design-taste-frontend\scripts\lint.mjs" <源文件>
 ```
 
-## ✍️ 写博客
+当前全部 8 个页面 **0 FAIL**。
 
-在 `source/_posts/` 下创建 Markdown 文件，格式：
+## 写文章
 
-```markdown
+```yaml
 ---
-title: 文章标题
-date: 2026-07-22
-categories:
-  - ROS
-tags:
-  - C++
-  - Sim2Real
-description: 文章简介（显示在首页列表）
+title: 标题                 # 两行内放得下，别太长
+date: 2026-11-08 12:00:00    # 必须带时间，见上面第 2 个坑
+categories: [机器人]
+tags: [ROS, 强化学习]
+description: 一句话摘要
+hero: /images/site/xxx.jpg   # 可选，文章首屏大图
+hero_alt: 图片描述
 ---
-
-正文内容...
 ```
 
-## 📝 更新个人信息
+## 事实纪律
 
-编辑数据文件即可，无需修改模板：
+站上所有数字都必须能对得上真实交付记录，这是硬规矩。
 
-### News 动态 — `source/_data/news.json`
-```json
-[
-  {"date": "2026-05", "text": "项目交付或获奖动态"},
-  {"date": "2026-01", "text": "其他事件"}
-]
-```
-
-### 项目展示 — `source/_data/projects.json`
-```json
-[
-  {
-    "name": "项目名称",
-    "desc": "一句话描述",
-    "tech": ["C++", "ROS", "Python"],
-    "link": "https://github.com/...",
-    "date": "2026.05"
-  }
-]
-```
-
-### 个人介绍 — `themes/academic/layout/index.ejs`
-编辑首页模板中的简介段落、研究方向等文字内容。
-
-## 🖼️ 更换头像
-
-将照片放入 `source/images/avatar.jpg`（建议 400×400 以上，正方形），或替换 `avatar.svg`。
-
-## 🖼️ 项目展示图片
-
-1. 截图放到 `source/images/projects/`，命名用小写英文 + 短横线，如 `multi-robot.jpg`
-2. 在 `source/_data/projects.json` 对应项目里加 `"image": "multi-robot.jpg"`（可选，不加则显示占位符）
-3. 截图建议 **800×450** 以上（16:9），模板会自动裁剪统一显示，无需手动精确裁切
-4. 文件格式推荐 JPG，单张控制在 500KB 以内即可
-
-## 🚢 部署
-
-每次 `git push` 到 `main` 分支，GitHub Actions 自动构建并部署到 GitHub Pages，无需手动操作。
-
-## 🛠️ 技术栈
-
-- **生成器**：[Hexo](https://hexo.io/)
-- **主题**：自建 Academic 主题（受 Tairan He / Jon Barron 风格启发）
-- **模板**：EJS
-- **部署**：GitHub Actions → GitHub Pages
-- **字体**：Titillium Web
+例如：PR #121 目前是「review 中、未合入」——不能写成「已合入」。
