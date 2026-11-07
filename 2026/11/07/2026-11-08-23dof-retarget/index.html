@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Hexo">
+  <title>把 29dof 动作裁成 23dof · 陈洛嘉</title>
+  <meta name="description" content="官方 unitree_rl_lab 不支持 G1 23dof 的舞蹈动作。从人体视频到真机部署，中间要过六道，每一道都有具体的坑。，深圳技术大学 · 计算机科学与技术 · 2023–2027。做人形机器人二次开发：全身运动控制、导航导览、多机群控。">
+  <meta name="author" content="陈洛嘉">
+  <meta name="theme-color" content="#f7f6f3">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="把 29dof 动作裁成 23dof · 陈洛嘉">
+  <meta property="og:description" content="官方 unitree_rl_lab 不支持 G1 23dof 的舞蹈动作。从人体视频到真机部署，中间要过六道，每一道都有具体的坑。">
+  <meta property="og:url" content="https://chenlockyer.github.io2026/11/07/2026-11-08-23dof-retarget/">
+  <meta property="og:image" content="https://chenlockyer.github.io/images/avatar.jpg">
+  <meta property="og:site_name" content="陈洛嘉">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://chenlockyer.github.io2026/11/07/2026-11-08-23dof-retarget/">
+
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/images/avatar.jpg">
+
+  <link rel="preload" href="/fonts/stix-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/notoserif-sc-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/notoserif-sc-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "陈洛嘉",
+    "alternateName": "Chen Lockyer",
+    "url": "https://chenlockyer.github.io",
+    "image": "https://chenlockyer.github.io/images/avatar.jpg",
+    "jobTitle": "计算机科学与技术本科生",
+    "affiliation": { "@type": "CollegeOrUniversity", "name": "深圳技术大学" },
+    "knowsAbout": ["人形机器人", "全身运动控制", "强化学习", "ROS2", "SLAM", "多机群控"],
+    "sameAs": ["https://github.com/chenlockyer", "https://chenlockyer.github.io/studio/"]
+  }
+  </script>
+  
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+
+  <header class="bar">
+    <a class="wordmark" href="/">
+      <span class="wm-cn">陈洛嘉</span>
+      <span class="wm-en">Chen Lockyer</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      
+        
+        
+        <a href="/">首页</a>
+      
+        
+        
+        <a href="/about/">履历</a>
+      
+        
+        
+        <a href="/projects/">项目</a>
+      
+        
+        
+        <a href="/archives/">文章</a>
+      
+    </nav>
+    <a class="nav-studio" href="https://chenlockyer.github.io/studio/" target="_blank" rel="noopener">
+      工作室 · 落地交付
+      <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M3 9L9 3M9 3H4M9 3v5" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </header>
+
+  <main id="main">
+    <!-- 文章页 -->
+<article class="page post-page">
+  <div class="post-head">
+    <div class="post-head-copy">
+      <h1 class="page-title">把 29dof 动作裁成 23dof</h1>
+
+      <div class="page-meta">
+        <time datetime="2026-11-07T16:00:00.000Z">2026-11-08</time>
+        
+          <span>机器人</span>
+        
+        
+          <span>#强化学习 #Sim2Real #Isaac Lab #G1</span>
+        
+      </div>
+      <p class="post-standfirst">官方 unitree_rl_lab 不支持 G1 23dof 的舞蹈动作。从人体视频到真机部署，中间要过六道，每一道都有具体的坑。</p>
+    </div>
+    
+    <figure class="post-hero">
+      <img src="/images/site/g1-dance-hero.jpg" alt="G1 在实验室里做舞蹈动作，面罩 LED 亮起" width="810" height="506">
+    </figure>
+    
+  </div>
+
+  <div class="post-content">
+    <h2 id="为什么会有这道题"><a href="#为什么会有这道题" class="headerlink" title="为什么会有这道题"></a>为什么会有这道题</h2><p>G1 有两个常见型号：29 自由度和 23 自由度。差别在腰部——29dof 多了 <code>waist_roll</code> 和 <code>waist_pitch</code> 两个自由度。</p>
+<p>官方的 <code>unitree_rl_lab</code> 只有 29dof 的 mimic 配置。把 29dof 训练出来的策略直接部署到 23dof 的机身上，会报错；就算勉强跑起来，动作也不稳——机器人会一直后退，站不住。</p>
+<p>原因不难理解：策略的输入是 29 维的动作张量，机身只有 23 个关节。少掉的两个自由度是<strong>腰部的俯仰和横滚</strong>，而这两个恰恰是保持平衡时用得最多的。</p>
+<p>所以要做的是：在动作数据层面把 29 维裁成 23 维，同时把缺失自由度的姿态用别的方式补偿掉，让策略重新训练。</p>
+<p>下面是整条链路，按实际跑通的顺序。</p>
+<h2 id="一、从视频提取人体动作"><a href="#一、从视频提取人体动作" class="headerlink" title="一、从视频提取人体动作"></a>一、从视频提取人体动作</h2><p>用 GVHMR 从单目视频估算人体参数，导出 <code>hmr4d_results.pt</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda activate gvhmr</span><br><span class="line"><span class="built_in">cd</span> ~/unitree/GVHMR</span><br><span class="line">python tools/demo/demo.py --video=docs/example_video/kunkun.mp4 -s</span><br></pre></td></tr></table></figure>
+
+<p>要点：<strong>视频帧率要记下来</strong>。后面 <code>csv_to_npz.py</code> 的 <code>--input_fps</code> 必须和原视频一致，否则动作整体会变快或变慢。</p>
+<h2 id="二、重定向到-G1-骨架"><a href="#二、重定向到-G1-骨架" class="headerlink" title="二、重定向到 G1 骨架"></a>二、重定向到 G1 骨架</h2><p>用 GMR 把 SMPL-X 的人体参数重定向到 unitree_g1 的骨架，导出 pkl。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">conda activate gmr</span><br><span class="line"><span class="built_in">cd</span> ~/unitree/GMR</span><br><span class="line">python scripts/gvhmr_to_robot.py \</span><br><span class="line">  --gvhmr_pred_file ../GVHMR/outputs/demo/kunkun/hmr4d_results.pt \</span><br><span class="line">  --robot unitree_g1 \</span><br><span class="line">  --record_video \</span><br><span class="line">  --save_path ./output_pkl/kunkun.pkl</span><br></pre></td></tr></table></figure>
+
+<p>重定向这一步最容易出问题：<strong>穿模</strong>和<strong>动作跳变</strong>。重定向出来的动作在人身上看着正常，到机器人身上就是手臂穿过躯干、或者某个瞬间关节速度突变。</p>
+<h2 id="三、转成-BeyondMimic-认的格式"><a href="#三、转成-BeyondMimic-认的格式" class="headerlink" title="三、转成 BeyondMimic 认的格式"></a>三、转成 BeyondMimic 认的格式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python scripts/batch_gmr_pkl_to_csv.py --folder ./output_pkl</span><br></pre></td></tr></table></figure>
+
+<p>批量转成 csv，输出在 <code>./output_pkl/csv</code>。</p>
+<h2 id="四、修动作数据"><a href="#四、修动作数据" class="headerlink" title="四、修动作数据"></a>四、修动作数据</h2><p>这一步不能跳。用 CSV Editor 打开动作曲线，配合 23dof 的机器人模型文件 <code>g1_23dof_rev_1_0.xml</code>，逐段修。</p>
+<p>几个实际用法：</p>
+<ul>
+<li>黄色竖线中间的蓝色区域是编辑生效的范围</li>
+<li><code>ctrl</code> + 鼠标左键拖动曲线，手动改某一段</li>
+<li>直线 &#x2F; 曲线连接可以把区间两端的值平滑接上</li>
+<li><strong>savgol 滤波</strong>处理抖动——这是解决”动作跳变”的主力工具</li>
+<li>红线处可以插帧，用来做初始位姿设置和动作之间的过渡</li>
+</ul>
+<blockquote>
+<p>注意：<strong>载入的必须是 29dof 的原始 csv</strong>。23dof 的动作文件格式和编辑器要求不一致，直接载入会映射错位，动作就不对了。</p>
+</blockquote>
+<p>裁剪的核心就是把腰部两个自由度的列从张量里去掉，下面这段是实际在跑的代码。</p>
+<h2 id="五、裁剪成-23-维并转-npz"><a href="#五、裁剪成-23-维并转-npz" class="headerlink" title="五、裁剪成 23 维并转 npz"></a>五、裁剪成 23 维并转 npz</h2><p>把修好的 <code>kunkun.csv</code> 放到 <code>unitree_rl_lab/scripts/mimic</code> 下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python scripts/mimic/csv_to_npz.py --input_fps 60 --input_file ./scripts/mimic/kunkun.csv</span><br></pre></td></tr></table></figure>
+
+<p>裁剪逻辑就几行——把腰部两个自由度对应的列从张量里去掉：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">elif</span> motion_dof_joints == <span class="number">29</span> <span class="keyword">and</span> robot_dof_joints == <span class="number">23</span>:</span><br><span class="line">    <span class="comment"># remove waist_roll, waist_pitch, left_wrist_pitch,</span></span><br><span class="line">    <span class="comment">#        left_wrist_yaw, right_wrist_pitch, right_wrist_yaw</span></span><br><span class="line">    motion.motion_dof_pos = torch.cat([</span><br><span class="line">        motion.motion_dof_pos[:, :<span class="number">13</span>],</span><br><span class="line">        motion.motion_dof_pos[:, <span class="number">15</span>:<span class="number">20</span>],</span><br><span class="line">        motion.motion_dof_pos[:, <span class="number">22</span>:<span class="number">27</span>],</span><br><span class="line">    ], dim=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>三个切片把 29 列拼成 23 列。速度张量同理。</p>
+<p><strong>等它打印出 <code>Motion npz file saved to ...</code> 再中断终端</strong>，否则 npz 是残缺的。</p>
+<p>训练日志里会看到奖励曲线慢慢抬起来。这一步的中间产物是 onnx，但它离真机还差一整套部署配置。</p>
+<p><img src="/images/projects/swarm-control.jpg" alt="G1 集群控制器：同一套动作数据最终也用于多机群控的指令下发"></p>
+<p><img src="/images/projects/whole-body-control.jpg" alt="真实的动作数据裁剪代码，跑在 unitree_rl_lab 的 mimic 流程里"></p>
+<h2 id="六、训练与部署"><a href="#六、训练与部署" class="headerlink" title="六、训练与部署"></a>六、训练与部署</h2><p>复制 <code>g1_23dof/sample</code> 目录改名，放入 npz，改 <code>__init__.py</code> 里的 id 和 <code>tracking_env_cfg.py</code> 里的 <code>motion_file</code>，然后：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python scripts/rsl_rl/train.py \</span><br><span class="line">  --task Unitree-G1-23dof-Mimic-Kunkun \</span><br><span class="line">  --num_envs 4096 --device cuda:0 --headless</span><br></pre></td></tr></table></figure>
+
+<p><code>--headless</code> 关掉 IsaacSim 的可视化，4096 个环境并行，训练快很多。</p>
+<p>导出 onnx 之后，部署前**必须改 <code>joint_ids_map</code>**。这是最容易漏的一步：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 29dof</span></span><br><span class="line"><span class="attr">joint_ids_map:</span> [<span class="number">0</span>, <span class="number">6</span>, <span class="number">12</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">13</span>, <span class="number">18</span>, <span class="number">2</span>, <span class="number">8</span>, <span class="number">14</span>, <span class="number">19</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">4</span>, <span class="number">10</span>, <span class="number">16</span>, <span class="number">21</span>, <span class="number">5</span>, <span class="number">11</span>, <span class="number">17</span>, <span class="number">22</span>]</span><br><span class="line"><span class="comment"># 23dof（少了 13、18 等对应腰部的位置）</span></span><br><span class="line"><span class="attr">joint_ids_map:</span> [<span class="number">0</span>, <span class="number">6</span>, <span class="number">12</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">15</span>, <span class="number">22</span>, <span class="number">2</span>, <span class="number">8</span>, <span class="number">16</span>, <span class="number">23</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">17</span>, <span class="number">24</span>, <span class="number">4</span>, <span class="number">10</span>, <span class="number">18</span>, <span class="number">25</span>, <span class="number">5</span>, <span class="number">11</span>, <span class="number">19</span>, <span class="number">26</span>]</span><br></pre></td></tr></table></figure>
+
+<p>映射错了，机器人会在上电的瞬间做一个完全不对的动作——这是现场最危险的一步，务必先吊起来试。</p>
+<p>上机前我一般先把机器人吊起来，让它空跑一遍动作。下面这张是建图和定位的界面，运控那条线用的是另一套工具，但”先在软件里看一遍再上机”的习惯是一样的。</p>
+<p><img src="/images/projects/navigation.jpg" alt="RViz 中的建图与定位界面"></p>
+<h2 id="六道验证，一道都不能省"><a href="#六道验证，一道都不能省" class="headerlink" title="六道验证，一道都不能省"></a>六道验证，一道都不能省</h2><p>把这条链路总结成一张表：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>过不了会怎样</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>动作提取</td>
+<td>帧率不对，动作整体变速</td>
+</tr>
+<tr>
+<td>重定向</td>
+<td>穿模、跳变，后续怎么调都救不回来</td>
+</tr>
+<tr>
+<td>数据修正</td>
+<td>不修就直接训练，策略学不出来</td>
+</tr>
+<tr>
+<td>裁剪 + 训练</td>
+<td>维数不对，直接报错</td>
+</tr>
+<tr>
+<td>跨引擎复验</td>
+<td>只在 IsaacSim 里对，真机上就是另一回事</td>
+</tr>
+<tr>
+<td>真机调优</td>
+<td>地面材质、灯光、负载都会改变结果</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>我的规矩：任何一道没过都不上真机。</strong><br>有吊机牵着的时候看着还行，松了吊机就散架——这种事发生过不止一次。</p>
+</blockquote>
+<h2 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h2><p>代码已提 <a target="_blank" rel="noopener" href="https://github.com/unitreerobotics/unitree_rl_lab/pull/121">PR #121</a> 到官方 <code>unitree_rl_lab</code> 仓库，补充 23dof U1 型号的适配。<strong>目前仍在 review，没有合入。</strong></p>
+<p>这件事还没收尾：舞蹈能跳，但稳定性还在收敛。”能跳”和”能当众跳”是两件不同的事。</p>
+<p>同一套链路后来也用在了场馆导览和群控的交付上，那些是另一条线的故事。</p>
+
+  </div>
+
+  <p class="page-back"><a class="txtlink" href="/">← 返回首页</a></p>
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <p class="foot-what">陈洛嘉 · 人形机器人二次开发</p>
+    <nav class="foot-links" aria-label="页脚导航">
+      <a href="/about/">履历</a>
+      <a href="/projects/">项目</a>
+      <a href="https://github.com/chenlockyer" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://chenlockyer.github.io/studio/" target="_blank" rel="noopener">工作室</a>
+      <a href="mailto:202300202023@stumail.sztu.edu.cn">邮箱</a>
+    </nav>
+    <p class="foot-meta">© 2026 · 深圳 · 坪山</p>
+  </footer>
+
+  <script src="/js/main.js" defer></script>
+  
+</body>
+</html>

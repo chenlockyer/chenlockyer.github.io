@@ -4,40 +4,112 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Hexo">
-  <title>我的机器人开发技术栈 | 陈洛嘉的技术博客</title>
-  <meta name="description" content="梳理我在机器人开发中常用的技术栈和工具链。">
-  <link rel="icon" href="/images/favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>我的机器人开发技术栈 · 陈洛嘉</title>
+  <meta name="description" content="做人形机器人二次开发实际在用的技术栈，以及每个工具解决什么问题。，深圳技术大学 · 计算机科学与技术 · 2023–2027。做人形机器人二次开发：全身运动控制、导航导览、多机群控。">
+  <meta name="author" content="陈洛嘉">
+  <meta name="theme-color" content="#f7f6f3">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="我的机器人开发技术栈 · 陈洛嘉">
+  <meta property="og:description" content="做人形机器人二次开发实际在用的技术栈，以及每个工具解决什么问题。">
+  <meta property="og:url" content="https://chenlockyer.github.io2026/07/21/2026-07-22-my-tech-stack/">
+  <meta property="og:image" content="https://chenlockyer.github.io/images/avatar.jpg">
+  <meta property="og:site_name" content="陈洛嘉">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://chenlockyer.github.io2026/07/21/2026-07-22-my-tech-stack/">
+
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/images/avatar.jpg">
+
+  <link rel="preload" href="/fonts/stix-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/notoserif-sc-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/notoserif-sc-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "陈洛嘉",
+    "alternateName": "Chen Lockyer",
+    "url": "https://chenlockyer.github.io",
+    "image": "https://chenlockyer.github.io/images/avatar.jpg",
+    "jobTitle": "计算机科学与技术本科生",
+    "affiliation": { "@type": "CollegeOrUniversity", "name": "深圳技术大学" },
+    "knowsAbout": ["人形机器人", "全身运动控制", "强化学习", "ROS2", "SLAM", "多机群控"],
+    "sameAs": ["https://github.com/chenlockyer", "https://chenlockyer.github.io/studio/"]
+  }
+  </script>
   
 </head>
 <body>
-  <table width="900" border="0" align="center" cellspacing="0" cellpadding="20">
-    <tr><td>
-      <!-- Blog Post Page -->
-<p align="center" style="font-size:28px;font-weight:600;margin:10px 0 5px 0;">
-  <pageheading>我的机器人开发技术栈</pageheading>
-</p>
-<p align="center" style="color:#999;font-size:14px;">
-  2026-07-22
-  
-     · 分类: &lt;a href=&#34;/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA/&#34;&gt;机器人&lt;/a&gt;
-  
-  
-     · 标签: &lt;a href=&#34;/tags/ROS/&#34;&gt;ROS&lt;/a&gt;, &lt;a href=&#34;/tags/C/&#34;&gt;C++&lt;/a&gt;, &lt;a href=&#34;/tags/Python/&#34;&gt;Python&lt;/a&gt;, &lt;a href=&#34;/tags/%E5%B7%A5%E5%85%B7%E9%93%BE/&#34;&gt;工具链&lt;/a&gt;
-  
-</p>
-<hr>
-<div class="post-content">
-  <h2 id="编程语言"><a href="#编程语言" class="headerlink" title="编程语言"></a>编程语言</h2><h3 id="Python-—-主力胶水语言"><a href="#Python-—-主力胶水语言" class="headerlink" title="Python — 主力胶水语言"></a>Python — 主力胶水语言</h3><ul>
-<li><strong>PyTorch</strong>：强化学习训练</li>
-<li><strong>OpenCV + NumPy</strong>：图像处理和矩阵运算</li>
-<li><strong>Flask</strong>：快速搭建机器人控制 API</li>
+  <a class="skip" href="#main">跳到正文</a>
+
+  <header class="bar">
+    <a class="wordmark" href="/">
+      <span class="wm-cn">陈洛嘉</span>
+      <span class="wm-en">Chen Lockyer</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      
+        
+        
+        <a href="/">首页</a>
+      
+        
+        
+        <a href="/about/">履历</a>
+      
+        
+        
+        <a href="/projects/">项目</a>
+      
+        
+        
+        <a href="/archives/">文章</a>
+      
+    </nav>
+    <a class="nav-studio" href="https://chenlockyer.github.io/studio/" target="_blank" rel="noopener">
+      工作室 · 落地交付
+      <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M3 9L9 3M9 3H4M9 3v5" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </header>
+
+  <main id="main">
+    <!-- 文章页 -->
+<article class="page post-page">
+  <div class="post-head">
+    <div class="post-head-copy">
+      <h1 class="page-title">我的机器人开发技术栈</h1>
+
+      <div class="page-meta">
+        <time datetime="2026-07-21T16:00:00.000Z">2026-07-22</time>
+        
+          <span>机器人</span>
+        
+        
+          <span>#ROS #C++ #Python #工具链</span>
+        
+      </div>
+      <p class="post-standfirst">做人形机器人二次开发实际在用的技术栈，以及每个工具解决什么问题。</p>
+    </div>
+    
+    <figure class="post-hero">
+      <img src="/images/projects/swarm-control.jpg" alt="G1 集群控制器：群控软件的真实界面" width="810" height="506">
+    </figure>
+    
+  </div>
+
+  <div class="post-content">
+    <h2 id="编程语言"><a href="#编程语言" class="headerlink" title="编程语言"></a>编程语言</h2><h3 id="Python-——-训练与胶水"><a href="#Python-——-训练与胶水" class="headerlink" title="Python —— 训练与胶水"></a>Python —— 训练与胶水</h3><ul>
+<li><strong>PyTorch</strong> —— 强化学习训练、动作数据处理</li>
+<li><strong>OpenCV + NumPy</strong> —— 图像处理与矩阵运算</li>
+<li><strong>Flask</strong> —— 机器人控制 API 的后端中间层</li>
 </ul>
-<h3 id="C-—-性能敏感场景"><a href="#C-—-性能敏感场景" class="headerlink" title="C++ — 性能敏感场景"></a>C++ — 性能敏感场景</h3><ul>
-<li>ROS&#x2F;ROS2 节点开发</li>
-<li>实时控制和嵌入式</li>
-<li>CMake 构建系统</li>
+<h3 id="C-——-性能敏感的地方"><a href="#C-——-性能敏感的地方" class="headerlink" title="C++ —— 性能敏感的地方"></a>C++ —— 性能敏感的地方</h3><ul>
+<li>ROS &#x2F; ROS2 节点开发</li>
+<li>实时控制、控制器代码</li>
+<li>CMake 构建</li>
 </ul>
 <h2 id="机器人框架"><a href="#机器人框架" class="headerlink" title="机器人框架"></a>机器人框架</h2><table>
 <thead>
@@ -47,44 +119,71 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><strong>ROS&#x2F;ROS2</strong></td>
-<td>机器人中间件，通信框架</td>
+<td><strong>ROS &#x2F; ROS2</strong></td>
+<td>机器人中间件，通信与节点编排</td>
 </tr>
 <tr>
 <td><strong>Isaac Lab</strong></td>
-<td>NVIDIA 的 RL 训练框架</td>
+<td>强化学习训练环境，支持大规模并行</td>
 </tr>
 <tr>
 <td><strong>MuJoCo</strong></td>
-<td>物理仿真引擎</td>
+<td>物理仿真，用于跨引擎复验</td>
 </tr>
 <tr>
 <td><strong>unitree_ros2</strong></td>
-<td>宇树机器人 ROS2 驱动</td>
+<td>宇树机器人的 ROS2 驱动</td>
 </tr>
 </tbody></table>
+<h2 id="一条实际的数据链"><a href="#一条实际的数据链" class="headerlink" title="一条实际的数据链"></a>一条实际的数据链</h2><p>做 G1 舞蹈动作的时候，数据要过这几道：</p>
+<ol>
+<li><strong>人体动作提取</strong> —— 从单目视频估算人体参数（SMPL-X）</li>
+<li><strong>Retarget</strong> —— 用 GMR 类框架重定向到 G1 骨架，做完重标定</li>
+<li><strong>修正</strong> —— savgol 平滑滤波处理动作跳变与穿模</li>
+<li><strong>训练</strong> —— Isaac Lab 里大规模并行训练</li>
+<li><strong>复验</strong> —— MuJoCo 里再跑一遍，两个引擎都对得上才上真机</li>
+<li><strong>真机</strong> —— 调稳定性：地面、灯光、负载都会让结果变</li>
+</ol>
+<p>任何一道没过都不该上真机 —— 这是吃过亏之后立的规矩。这条链路的细节我单独写了一篇：**<a href="/2026/11/08/2026-11-08-23dof-retarget/">把 29dof 动作裁成 23dof</a>**。</p>
+<h2 id="真机上的样子"><a href="#真机上的样子" class="headerlink" title="真机上的样子"></a>真机上的样子</h2><p>工具链配好之后，最终要落到这台机器上：</p>
+<p><img src="/images/site/g1-tour.jpg" alt="G1 在展厅里自主带路，面罩 LED 亮起"></p>
 <h2 id="工具链"><a href="#工具链" class="headerlink" title="工具链"></a>工具链</h2><ul>
-<li><strong>Git &#x2F; GitHub</strong>：版本控制和协作</li>
-<li><strong>Docker</strong>：环境隔离和部署</li>
-<li><strong>Linux</strong>：日常开发环境</li>
-<li><strong>VS Code</strong>：主力编辑器</li>
+<li><strong>Git &#x2F; GitHub</strong> —— 版本控制与协作</li>
+<li><strong>Docker</strong> —— 环境隔离</li>
+<li><strong>Linux</strong> —— 日常开发环境</li>
+<li><strong>SSH &#x2F; SFTP</strong> —— 远程部署到机器人本体</li>
 </ul>
-<hr>
-<p>后续会针对每个方向写更详细的文章。欢迎在 <a target="_blank" rel="noopener" href="https://github.com/chenlockyer">GitHub</a> 上交流讨论！</p>
+<p>下面这张是群控软件的真实界面——ROS2 通信、指令编排、安全急停都在这一页里。</p>
+<p><img src="/images/projects/swarm-control.jpg" alt="G1 集群控制器：左侧机器人在线状态，中间指令表，右侧队列与急停"></p>
+<h2 id="两个选型上的教训"><a href="#两个选型上的教训" class="headerlink" title="两个选型上的教训"></a>两个选型上的教训</h2><p><strong>第一，能用本体算力就别加外设。</strong></p>
+<p>导航最早跑在背包电脑上，交付时多一个设备要装、运输还容易坏，坏一次型号变了就得软硬件一起返工。后来整体迁到本体 Jetson，交付变简单，单次定制点也少了一个。</p>
+<p><strong>第二，界面要能被不是工程师的人用。</strong></p>
+<p>导览系统最初是六个页面的调试工具，二十个操作步骤。场馆的人学不会。后来重构成三个空间、七件事、一个红色停止按钮，才真的能交接出去。</p>
+<p>数据链路跑通之后，真机上还要过一遍。这张是建图与定位的界面：</p>
+<p><img src="/images/projects/navigation.jpg" alt="RViz 中的建图与定位界面：2D 栅格地图、激光点云与代价地图"></p>
+<h2 id="一点经验"><a href="#一点经验" class="headerlink" title="一点经验"></a>一点经验</h2><p>技术栈本身不是壁垒，<strong>把技术栈组合成能交付的东西</strong>才是。同样的 ROS + PyTorch，做成演示视频和做成场馆里天天跑的产品，是两个工作量级。</p>
+<p>后续会针对每个方向写更细的文章。欢迎在 <a target="_blank" rel="noopener" href="https://github.com/chenlockyer">GitHub</a> 上讨论。</p>
 
-</div>
-<hr>
-<p align="center">
-  <a href="/">← 返回首页</a>
-</p>
+  </div>
 
-      <hr>
-      <p align="center" style="color:#999;font-size:14px;">
-        <small>© 2026 陈洛嘉</small>
-      </p>
-    </td></tr>
-  </table>
-  <script src="/js/main.js"></script>
+  <p class="page-back"><a class="txtlink" href="/">← 返回首页</a></p>
+</article>
+
+  </main>
+
+  <footer class="foot">
+    <p class="foot-what">陈洛嘉 · 人形机器人二次开发</p>
+    <nav class="foot-links" aria-label="页脚导航">
+      <a href="/about/">履历</a>
+      <a href="/projects/">项目</a>
+      <a href="https://github.com/chenlockyer" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://chenlockyer.github.io/studio/" target="_blank" rel="noopener">工作室</a>
+      <a href="mailto:202300202023@stumail.sztu.edu.cn">邮箱</a>
+    </nav>
+    <p class="foot-meta">© 2026 · 深圳 · 坪山</p>
+  </footer>
+
+  <script src="/js/main.js" defer></script>
   
 </body>
 </html>
