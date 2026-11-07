@@ -1,6 +1,6 @@
 ---
 title: 把 29dof 动作裁成 23dof
-date: 2026-11-08
+date: 2026-11-08 12:00:00
 categories:
   - 机器人
 tags:

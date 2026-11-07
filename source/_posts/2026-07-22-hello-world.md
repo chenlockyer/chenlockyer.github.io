@@ -1,6 +1,6 @@
 ---
 title: Hello World — 博客上线
-date: 2026-07-22
+date: 2026-07-22 12:00:00
 categories:
   - 杂谈
 tags:
