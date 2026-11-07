@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://chenlockyer.github.io/2026/07/21/2026-07-22-hello-world/</loc>
+    <loc>https://chenlockyer.github.io/2026/07/22/2026-07-22-hello-world/</loc>
     
     <lastmod>2026-11-07</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://chenlockyer.github.io/2026/07/21/2026-07-22-my-tech-stack/</loc>
+    <loc>https://chenlockyer.github.io/2026/07/22/2026-07-22-my-tech-stack/</loc>
     
     <lastmod>2026-11-07</lastmod>
     
@@ -29,16 +29,7 @@
   </url>
   
   <url>
-    <loc>https://chenlockyer.github.io/2026/11/07/2026-11-08-23dof-retarget/</loc>
-    
-    <lastmod>2026-11-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://chenlockyer.github.io/about/index.html</loc>
+    <loc>https://chenlockyer.github.io/2026/11/08/2026-11-08-23dof-retarget/</loc>
     
     <lastmod>2026-11-07</lastmod>
     
@@ -48,6 +39,15 @@
   
   <url>
     <loc>https://chenlockyer.github.io/friends/index.html</loc>
+    
+    <lastmod>2026-11-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://chenlockyer.github.io/about/index.html</loc>
     
     <lastmod>2026-11-07</lastmod>
     
