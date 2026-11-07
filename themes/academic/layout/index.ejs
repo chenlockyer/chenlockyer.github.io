@@ -1,111 +1,199 @@
-<!-- Homepage: Academic Profile -->
+<!-- ============================================================
+     个人主页 · 版式方向 quiet-instrument（seed 185651133）
+     主张：克制本身就是声明。版式精确，用真实现场画面与真实界面截图举证。
+     页面上每一张图都是真机实拍或真实产品界面，没有示意图、没有渲染图、没有 AI 生成图。
+     ============================================================ -->
 
-<!-- Profile Section -->
-<!-- Name centered on top -->
-<p align="center" style="font-size:36px;font-weight:400;margin:0 0 10px 0;">
-  <pageheading>陈洛嘉 Chen Lockyer</pageheading>
-</p>
+<section class="hero">
+  <div class="hero-copy">
+    <h1 class="hero-title">
+      <span class="ht-l1">把人形机器人</span>
+      <span class="ht-l2">从论文搬到现场</span>
+    </h1>
 
-<table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
-  <tr>
-    <td width="30%" valign="top" align="center">
-      <img src="<%= url_for('/images/avatar.jpg') %>" width="100%" style="border-radius:15px;max-width:250px;">
-      <p align="center">
-        | <a href="mailto:202300202023@stumail.sztu.edu.cn">Email</a> |
-        <a href="https://github.com/chenlockyer">GitHub</a> |
-        <a href="https://space.bilibili.com/525025986">Bilibili</a> |
+    <p class="hero-lead">
+      <%= theme.profile.name %>，<%= theme.profile.role %>。
+      做宇树 G1 的二次开发——全身运动控制、导航导览、多机群控。
+      下面这些都已经在客户的场地上跑着。
+    </p>
 
-      </p>
-    </td>
-    <td width="70%" valign="top" align="justify">
-      <p>我是深圳技术大学计算机科学与技术专业的本科生（2023-2027），专注于<strong>人形机器人</strong>、<strong>强化学习</strong>和<strong>多模态 AI</strong>。热爱将算法变为实物——让机器人动起来、理解世界、与人交互。</p>
-      <p><strong>目标：</strong>让机器人真正走进日常生活，做有用的、可落地的机器人系统。</p>
-      <p><strong>研究方向：</strong>人形机器人全身运动控制（WBC）、强化学习、多机器人集群系统。</p>
-    </td>
-  </tr>
-</table>
+    <dl class="facts">
+      <% theme.facts.forEach(function(f){ %>
+      <div class="fact">
+        <dt class="fact-n"><%= f.value %><span class="fact-u"><%= f.unit %></span></dt>
+        <dd class="fact-l"><%= f.label %></dd>
+      </div>
+      <% }); %>
+    </dl>
 
-<hr>
+    <div class="hero-act">
+      <a class="btn" href="#work">看做过什么</a>
+      <a class="txtlink" href="<%= theme.studio.url %>" target="_blank" rel="noopener">
+        工作室在接的活
+        <svg viewBox="0 0 14 10" width="13" height="9" aria-hidden="true" focusable="false"><path d="M1 5h11M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
 
-<!-- News Section -->
-<% if (site.data && site.data.news && site.data.news.length) { %>
-<table width="100%" align="center" border="0" cellspacing="0" cellpadding="10">
-  <tr><td><sectionheading>&nbsp;News</sectionheading></td></tr>
-</table>
-<ul>
-  <% for (var ni = 0; ni < site.data.news.length; ni++) { %>
-    <li><strong>[<%= site.data.news[ni].date %>]</strong> <%- site.data.news[ni].text %></li>
-  <% } %>
-</ul>
-<hr>
-<% } %>
+  <figure class="hero-media">
+    <video class="hero-video" muted loop playsinline autoplay preload="metadata"
+           poster="<%= url_for('/images/site/g1-tour.jpg') %>"
+           aria-label="G1 在展厅里自主带路，面罩 LED 亮起，走向访客">
+      <source src="<%= url_for('/images/video/tour-live.mp4') %>" type="video/mp4">
+    </video>
+    <figcaption>展厅里自主带路。定位与建图跑在本体上，断网也能继续走。</figcaption>
+  </figure>
+</section><!-- ============ 一 · 三条技术线 ============ -->
+<section class="sec" id="lines" aria-labelledby="lines-h">
+  <h2 class="sec-h" id="lines-h">三条线，同一台机器</h2>
 
-<!-- Projects Section -->
-<% if (site.data && site.data.projects && site.data.projects.length) { %>
-<table width="100%" align="center" border="0" cellspacing="0" cellpadding="10">
-  <tr><td><sectionheading>&nbsp;项目经验</sectionheading></td></tr>
-</table>
+  <div class="cols">
+    <p class="col">
+      <b>全身运动控制。</b>基于 BeyondMimic 与 Isaac Lab，从人体动作视频构建训练数据，
+      retarget 到 G1 本体重标定。数据要过四道验证：动作提取、仿真训练、跨引擎复验、真机调优，
+      任何一道没过都不上真机。团队补上了官方仓库缺的 G1 23dof 配置。
+    </p>
+    <p class="col">
+      <b>导航与导览。</b>本体 Jetson 上跑建图、定位、路径规划，接语音讲解与上肢动作播报。
+      雷达建图出点云，转 2D 栅格，再在地图上排站点顺序与朝向。
+      场馆的人不用懂 ROS，改站点、改讲解词在后台点几下就生效。
+    </p>
+    <p class="col">
+      <b>多机群控。</b>TCP 桥接 unitree_ros2 的 wirelesscontroller 话题，
+      用 WirelessController 消息与 xKeySwitchUnion 位掩码做远程控制；NTP 负责多机时间同步。
+      官方动作库与自编按键动作都能进队列，现场一个红色按钮全部急停。
+    </p>
+    <p class="col">
+      <b>怎么做的。</b>先跑通再讲清楚。读论文、复现代码、上真机、调稳定性。
+      选型上吃过一个教训：能用本体算力就别加外设——导航最早跑在背包电脑上，
+      交付时多一个设备要装、运输还容易坏，后来整体迁到本体 Jetson。
+    </p>
+  </div>
+</section>
 
-<% for (var pi = 0; pi < site.data.projects.length; pi++) { %>
-<% var proj = site.data.projects[pi]; %>
+<!-- ============ 二 · 真机现场 ============ -->
+<section class="sec" id="reel" aria-labelledby="reel-h">
+  <h2 class="sec-h" id="reel-h">在现场</h2>
 
-  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
-    <tr>
-      <td width="40%" valign="top" align="center">
-        <% if (proj.image) { %>
-          <div style="width:90%;max-width:300px;border-radius:15px;overflow:hidden;aspect-ratio:16/9;">
-            <img src="<%= url_for('/images/projects/' + proj.image) %>" width="100%" height="100%" style="object-fit:cover;display:block;">
-          </div>
-        <% } else { %>
-          <div style="background:linear-gradient(135deg,#eff6ff,#bfdbfe);border-radius:15px;width:90%;height:120px;display:flex;align-items:center;justify-content:center;color:#3b82f6;font-weight:600;font-size:32px;">
-            <%= proj.name.charAt(0) %>
-          </div>
+  <div class="reel">
+    <figure class="reel-item">
+      <img src="<%= url_for('/images/site/g1-tour.jpg') %>" alt="G1 在学院楼走道里，面罩 LED 亮起，正面朝向访客" width="720" height="1280" loading="lazy">
+      <figcaption>场馆导览 · 展厅里自主带路讲解</figcaption>
+    </figure>
+    <figure class="reel-item">
+      <img src="<%= url_for('/images/site/g1-dance.jpg') %>" alt="G1 在实验室里做舞蹈动作" width="720" height="1280" loading="lazy">
+      <figcaption>舞台动作 · 拉丁舞与指挥家，真机上台</figcaption>
+    </figure>
+    <figure class="reel-item">
+      <img src="<%= url_for('/images/site/g1-group.jpg') %>" alt="多台 G1 在展厅内同步执行同一条舞蹈队列" width="1280" height="720" loading="lazy">
+      <figcaption>多机同步 · 一套指令，多台对齐</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ 三 · 交付过的（账本 + 界面举证） ============ -->
+<section class="sec" id="work" aria-labelledby="work-h">
+  <h2 class="sec-h" id="work-h">交付过的</h2>
+
+  <div class="ledger">
+    <ul class="ledger-list">
+      <% site.data.projects.forEach(function(p, i){ %>
+      <li class="ledger-row" data-i="<%= i %>">
+        <a class="lr-hit" href="<%= p.href || '/projects/' %>"<% if (p.external) { %> target="_blank" rel="noopener"<% } %>>
+          <span class="lr-name"><%= p.name %></span>
+          <span class="lr-kind"><%= p.kind %></span>
+          <span class="lr-year"><%= p.year %></span>
+        </a>
+        <% if (p.image) { %>
+        <figure class="ledger-shot">
+          <img src="<%= url_for('/images/projects/' + p.image) %>" alt="<%= p.alt %>" width="1200" height="675" loading="lazy">
+        </figure>
         <% } %>
-      </td>
-      <td width="60%" valign="top">
-        <p>
-          <heading>
-            <% if (proj.link) { %><a href="<%= proj.link %>"><%= proj.name %></a>
-            <% } else { %><%= proj.name %><% } %>
-          </heading>
-        </p>
-        <p><%= proj.desc %></p>
-        <p>
-          <% for (var tj = 0; tj < (proj.tech || []).length; tj++) { %>
-            <span class="tag"><%= proj.tech[tj] %></span>
-          <% } %>
-        </p>
-        <p style="color:#999;font-size:14px;"><%= proj.date %></p>
-      </td>
-    </tr>
-  </table>
-<% } %>
+      </li>
+      <% }); %>
+    </ul>
+  </div>
 
-<hr>
-<% } %>
+  <p class="ledger-more"><a class="txtlink" href="<%= url_for('/projects/') %>">全部项目与细节 →</a></p>
+</section>
 
-<!-- Recent Blog Posts -->
-<table width="100%" align="center" border="0" cellspacing="0" cellpadding="10">
-  <tr><td><sectionheading>&nbsp;最新文章</sectionheading></td></tr>
-</table>
+<!-- ============ 四 · 界面举证 ============ -->
+<section class="sec" id="proof" aria-labelledby="proof-h">
+  <h2 class="sec-h" id="proof-h">软件长什么样</h2>
+  <p class="proof-lead">
+    界面都是真实产品的截图，不是示意图。左边是导览机器人的接待页，
+    右边是集群控制器的舞蹈运控指令表——两个站都在客户场地里跑着。
+  </p>
 
-<% if (page.posts && page.posts.length) { %>
-  <% page.posts.each(function(post) { %>
-    <p>
-      <a href="<%= url_for(post.path) %>"><heading><%= post.title %></heading></a><br>
-      <span style="color:#999;font-size:14px;"><%= date(post.date, 'YYYY-MM-DD') %></span>
-      <% if (post.categories && post.categories.length) { %>
-        <span style="color:#6b7280;font-size:14px;"> · <%= post.categories.map(function(c){return c.name}).join(', ') %></span>
+  <div class="proof-grid">
+    <figure class="proof-item">
+      <img src="<%= url_for('/images/ui/navi-home-960.jpg') %>" alt="导览机器人接待页：定位、导航、语音三个开关，下面是本体雷达建出的三维点云地图" width="960" height="459" loading="lazy">
+      <figcaption>接待页：定位、导航、语音三个开关，下面是雷达实时建出的点云。</figcaption>
+    </figure>
+    <figure class="proof-item">
+      <img src="<%= url_for('/images/ui/gc-dance-960.jpg') %>" alt="集群控制器桌面端：左侧机器人在线状态，中间舞蹈运控指令表，右侧控制与队列" width="1920" height="918" loading="lazy">
+      <figcaption>群控桌面端：左边机器人在线状态，中间是舞蹈运控指令表，右边是队列与急停。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ 五 · 工作室（互相导流） ============ -->
+<section class="sec" id="studio" aria-labelledby="studio-h">
+  <h2 class="sec-h" id="studio-h">工作室</h2>
+  <div class="studio-grid">
+    <p class="studio-lead">
+      和搭档在做的事：把 G1 / GO2 的落地交付做成能复制的活——
+      场馆导览、舞台动作、多机同步、师资培训。
+      硬件是宇树的，让它在你场地上真的跑起来，是我们的部分。
+      服务范围、交付流程和实绩都整理在工作室那一页。
+    </p>
+    <p class="studio-act">
+      <a class="btn" href="<%= theme.studio.url %>" target="_blank" rel="noopener">
+        去工作室看看
+        <svg viewBox="0 0 14 10" width="13" height="9" aria-hidden="true" focusable="false"><path d="M1 5h11M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <span class="studio-note">接单、报价、交付流程都在那边。</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ 六 · 最近写的 + 联系（同屏两栏） ============ -->
+<section class="sec sec-tail" id="writing" aria-labelledby="writing-h">
+  <h2 class="sec-h" id="writing-h">最近写的</h2>
+
+  <div class="tail-grid">
+    <div class="tail-left">
+      <% if (page.posts && page.posts.length) { %>
+      <ul class="rows">
+        <% page.posts.each(function(post){ %>
+        <li class="row">
+          <a href="<%= url_for(post.path) %>">
+            <span class="row-name"><%= post.title %></span>
+            <span class="row-date"><%= date(post.date, 'YYYY-MM') %></span>
+          </a>
+        </li>
+        <% }); %>
+      </ul>
+      <% } else { %>
+      <p class="empty">还没有文章。</p>
       <% } %>
-    </p>
-  <% }); %>
-  <% if (page.total > 1) { %>
-    <p style="text-align:center;margin-top:20px;">
-      <% if (page.prev) { %><a href="<%= url_for(page.prev_link) %>">← 上一页</a> &nbsp;<% } %>
-      <span style="color:#999;">第 <%= page.current %> / <%= page.total %> 页</span>
-      <% if (page.next) { %>&nbsp; <a href="<%= url_for(page.next_link) %>">下一页 →</a><% } %>
-    </p>
-  <% } %>
-<% } else { %>
-  <p style="color:#999;">暂无文章，马上会写第一篇。</p>
-<% } %>
+      <p class="rows-more"><a class="txtlink" href="<%= url_for('/archives/') %>">全部文章 →</a></p>
+    </div>
+
+    <div class="tail-right" id="contact">
+      <h2 class="tail-q">找我有事</h2>
+      <p class="contact-say">
+        在找人聊机器人落地、导览项目，或者想一起把某个动作调稳，都可以直接找我。
+      </p>
+      <div class="contact-side">
+        <img class="contact-face" src="<%= url_for('/images/avatar.jpg') %>" alt="陈洛嘉" width="640" height="640" loading="lazy">
+        <div class="contact-links">
+          <p class="cl-q">写邮件最快</p>
+          <a href="mailto:<%= theme.contact.email %>"><%= theme.contact.email %></a>
+          <a href="<%= theme.contact.github %>" target="_blank" rel="noopener">github.com/chenlockyer</a>
+          <p class="cl-meta"><%= theme.contact.city %> · 工作日通常当天回</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

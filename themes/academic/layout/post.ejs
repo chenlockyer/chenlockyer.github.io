@@ -1,21 +1,30 @@
-<!-- Blog Post Page -->
-<p align="center" style="font-size:28px;font-weight:600;margin:10px 0 5px 0;">
-  <pageheading><%= page.title %></pageheading>
-</p>
-<p align="center" style="color:#999;font-size:14px;">
-  <%= date(page.date, 'YYYY-MM-DD') %>
-  <% if (page.categories && page.categories.length) { %>
-     · 分类: <%= page.categories.map(function(c){ return '<a href="' + url_for(c.path) + '">' + c.name + '</a>' }).join(', ') %>
-  <% } %>
-  <% if (page.tags && page.tags.length) { %>
-     · 标签: <%= page.tags.map(function(t){ return '<a href="' + url_for(t.path) + '">' + t.name + '</a>' }).join(', ') %>
-  <% } %>
-</p>
-<hr>
-<div class="post-content">
-  <%- page.content %>
-</div>
-<hr>
-<p align="center">
-  <a href="/">← 返回首页</a>
-</p>
+<!-- 文章页 -->
+<article class="page post-page">
+  <div class="post-head">
+    <div class="post-head-copy">
+      <h1 class="page-title"><%= page.title %></h1>
+
+      <div class="page-meta">
+        <time datetime="<%= page.date.toISOString() %>"><%= date(page.date, 'YYYY-MM-DD') %></time>
+        <% if (page.categories && page.categories.length) { %>
+          <span><%= page.categories.map(function(c){ return c.name }).join(' · ') %></span>
+        <% } %>
+        <% if (page.tags && page.tags.length) { %>
+          <span><%= page.tags.map(function(t){ return '#' + t.name }).join(' ') %></span>
+        <% } %>
+      </div>
+      <% if (page.description) { %><p class="post-standfirst"><%= page.description %></p><% } %>
+    </div>
+    <% if (page.hero) { %>
+    <figure class="post-hero">
+      <img src="<%= url_for(page.hero) %>" alt="<%= page.hero_alt || page.title %>" width="810" height="506">
+    </figure>
+    <% } %>
+  </div>
+
+  <div class="post-content">
+    <%- page.content %>
+  </div>
+
+  <p class="page-back"><a class="txtlink" href="<%= url_for('/') %>">← 返回首页</a></p>
+</article>

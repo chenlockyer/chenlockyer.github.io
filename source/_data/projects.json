@@ -1,32 +1,51 @@
 [
   {
-    "name": "人形机器人 RL 全身运动控制",
-    "desc": "基于 BeyondMimic + Isaac Lab 的 G1 舞蹈 RL 训练，已提交官方 PR ",
+    "name": "多机群控软件",
+    "kind": "群控 · 已交付 3 套",
+    "year": "2026.05",
+    "desc": "通过 TCP 桥接 unitree_ros2 的 wirelesscontroller，配合 NTP 时间同步，把一套指令同时下发到多台 G1。支持宇树官方动作库与自编按键动作，界面里带舞蹈急停与阻尼保护。",
+    "tech": ["C++", "ROS2", "TCP", "NTP", "Python"],
+    "detail": "已交付 3 个客户、3 套系统。集成 SSH/SFTP 快速部署与 RSA License 激活，从需求沟通到部署交付、售后维护走完了完整一轮。",
+    "image": "swarm-control.jpg",
+    "alt": "G1 集群控制器界面：左侧机器人在线列表，中间命令表，右侧同步模式与舞蹈急停、阻尼保护等安全控制",
+    "href": "https://chenlockyer.github.io/studio/#group",
+    "external": true,
+    "featured": true
+  },
+  {
+    "name": "G1 导览机器人",
+    "kind": "导航 · 已交付 7 台",
+    "year": "2026.01",
+    "desc": "本体 Jetson 上跑的导航与语音导览系统：雷达建图、点云转 2D 栅格、定位、路径规划，接语音讲解、对话与上肢动作。场馆侧有后台可改站点与讲解词。",
+    "tech": ["ROS", "Python", "Flask", "React", "SQLite", "SLAM"],
+    "detail": "已交付 7 台设备、3 个客户。学院楼那条线 13 个站点，直线约 240 米。这一套同时作为本科毕业设计。",
+    "image": "navigation.jpg",
+    "alt": "RViz 中的建图与定位界面：2D 栅格地图、激光点云与代价地图",
+    "href": "https://chenlockyer.github.io/studio/#navi",
+    "external": true,
+    "featured": true
+  },
+  {
+    "name": "人形机器人全身运动控制",
+    "kind": "强化学习 · PR 待合入",
+    "year": "2025.09",
+    "desc": "基于 BeyondMimic 模仿学习框架，从人体动作视频构建数据集，retarget 到 G1 后做平滑滤波修正动作跳变，在 Isaac Lab 训练、MuJoCo 复验，最后 sim2real 上真机。",
     "tech": ["Python", "PyTorch", "Isaac Lab", "MuJoCo", "C++"],
-    "link": "https://github.com/unitreerobotics/unitree_rl_lab/pull/121",
-    "date": "2026.4"
+    "detail": "官方 unitree_rl_lab 不支持 G1 23dof 的舞蹈动作。团队补了 23dof 的 mimic 配置、动作张量裁剪脚本与控制器代码，让 23dof U1 型号能跑 mimic 舞蹈。代码已提 PR #121 到官方仓库，目前仍在 review，未合入。",
+    "image": "whole-body-control.jpg",
+    "alt": "动作数据重定向代码：把 29 自由度的动作张量裁成 23 自由度，去掉腰部多出的两个自由度",
+    "href": "https://github.com/unitreerobotics/unitree_rl_lab/pull/121",
+    "external": true,
+    "featured": true
   },
   {
-    "name": "多机器人集群控制系统",
-    "desc": "通过 TCP + NTP 实现多台 G1 人形机器人实时群控同步舞蹈，已交付 3 家客户",
-    "tech": ["C++", "ROS2", "TCP", "Python"],
-    "link": "",
-    "image": "multi-robot.jpg",
-    "date": "2026.05"
-  },
-  {
-    "name": "G1 机器人导览员",
-    "desc": "基于 ROS + Flask + React 的 G1 机器人远程遥操作与状态监控系统",
-    "tech": ["Python", "Flask", "React", "ROS", "SQLite"],
-    "link": "",
-    "date": "2026.01"
-  },
-
-  {
-    "name": "腾讯mini项目：多模态大模型Text-to-Image自动化评测",
-    "desc": "多模态大模型驱动的 Text-to-Image 自动标注质量评估 pipeline",
+    "name": "腾讯 Mini 项目 · 多模态文生图自动评测",
+    "kind": "MLLM · 结项",
+    "year": "2025.07",
+    "desc": "以多模态大模型作为评分模型，构建 Text-to-Image 生成任务的自动化评测体系，替代人工打分。",
     "tech": ["Python", "PyTorch", "MLLM", "Text-to-Image"],
-    "link": "https://github.com/chenlockyer/mini-project",
-    "date": "2025.07"
+    "detail": "评测速度 168.5 用例/小时，与人类评分一致率 90.2%。担任组长，负责评测体系构建与打分方法设计。",
+    "href": "https://github.com/chenlockyer/mini-project",
+    "external": true
   }
 ]

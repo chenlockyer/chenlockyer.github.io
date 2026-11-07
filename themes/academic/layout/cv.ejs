@@ -1,0 +1,21 @@
+<!-- 履历页：内容在 source/about/index.md，版式由本模板控制 -->
+<article class="page page-cv">
+  <header class="cv-top">
+    <h1 class="page-title">履历</h1>
+    <p class="page-lead">深圳技术大学计算机科学与技术，2023–2027。做人形机器人的二次开发：把论文里的方法变成场地上能跑的东西，交付出去，让场馆自己的人能接着维护。</p>
+    <dl class="cv-facts">
+      <div><dt>7</dt><dd>台导览设备已交付</dd></div>
+      <div><dt>3</dt><dd>个客户在用</dd></div>
+      <div><dt>3</dt><dd>套群控已交付</dd></div>
+      <div><dt>3</dt><dd>条技术线</dd></div>
+    </dl>
+    <img class="cv-banner" src="<%= url_for('/images/site/g1-group.jpg') %>"
+         alt="多台 G1 在展厅内同步执行同一条舞蹈队列" width="2560" height="1440">
+  </header>
+
+  <div class="cv-body">
+<%- page.content %>
+  </div>
+
+  <p class="page-back"><a class="txtlink" href="<%= url_for('/') %>">← 返回首页</a></p>
+</article>

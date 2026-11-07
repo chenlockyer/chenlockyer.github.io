@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 陈洛嘉的技术博客
-subtitle: '机器人工程师 · Exploring Intelligent Machines'
-description: '陈洛嘉的个人主页 — 专注机器人、SLAM、C++、ROS 技术分享'
-keywords: '机器人,ROS,SLAM,C++,强化学习,人形机器人'
+title: 陈洛嘉
+subtitle: '人形机器人二次开发 · 运控 / 导航 / 群控'
+description: '陈洛嘉，深圳技术大学计算机科学与技术。做人形机器人二次开发：全身运动控制、导航导览、多机群控。'
+keywords: '陈洛嘉,人形机器人,宇树G1,全身运动控制,强化学习,ROS2,SLAM,多机群控,Sim2Real'
 author: 陈洛嘉
 language: zh-CN
 timezone: 'Asia/Shanghai'
@@ -97,6 +97,13 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: academic
+
+# Sitemap
+sitemap:
+  path: sitemap.xml
+  rel: false
+  tags: false
+  categories: false
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment

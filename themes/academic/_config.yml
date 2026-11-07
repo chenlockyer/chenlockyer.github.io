@@ -1,36 +1,43 @@
-# Academic Theme Config
-# Clean academic homepage style
+# Academic Theme — 陈洛嘉个人主页
+# 版式方向：quiet-instrument（克制 / 排版主导 / 真实界面截图举证）
+# 配色取自素材本身：G1 面罩 LED 蓝为唯一强调色
 
-# Navigation menu
 menu:
   首页: /
-  归档: /archives/
-  关于: /about/
+  履历: /about/
+  项目: /projects/
+  文章: /archives/
 
-# Homepage profile settings
+# 站外入口（视觉上与站内导航区分）
+studio:
+  label: 工作室 · 落地交付
+  url: https://chenlockyer.github.io/studio/
+
 profile:
-  photo: /images/avatar.jpg
   name: 陈洛嘉
-  subtitle: '机器人工程师 · 探索智能机器的边界'
-  # Links displayed below the photo
-  links:
-    Email: 'mailto:202300202023@stumail.sztu.edu.cn'
-    GitHub: 'https://github.com/chenlockyer'
-    # CV: /about/
-    # Google Scholar: ''
-    # LinkedIn: ''
+  name_en: Chen Lockyer
+  role: 深圳技术大学 · 计算机科学与技术 · 2023–2027
+  photo: /images/avatar.jpg
+  # 一句话定位：具体到能被别人复述
+  position: 做人形机器人的二次开发——全身运动控制、导航导览、多机群控。
 
-# Bio paragraphs (each line is a paragraph on the homepage right column)
-bio:
-  - '深圳技术大学计算机科学与技术专业本科生（2023-2027），专注于**机器人系统**、**强化学习**和**多模态 AI**。热爱将算法变为实物——让机器人动起来、理解世界、与人交互。'
-  - '我的目标：让机器人真正走进日常生活，做有用的、可落地的机器人系统。'
+# 首屏事实行：只写能对得上交付记录的数字
+facts:
+  - value: '7'
+    unit: 台
+    label: 导览设备已交付
+  - value: '3'
+    unit: 个
+    label: 客户在用
+  - value: '3'
+    unit: 套
+    label: 群控系统已交付
+  - value: '13'
+    unit: 站
+    label: 单条导览线路
 
-# Sections to show on homepage
-sections:
-  news: true
-  projects: true
-  recent_posts: true
-
-# Social links in footer
-social:
-  GitHub: https://github.com/chenlockyer
+contact:
+  email: 202300202023@stumail.sztu.edu.cn
+  github: https://github.com/chenlockyer
+  bilibili: https://space.bilibili.com/525025986
+  city: 深圳 · 坪山

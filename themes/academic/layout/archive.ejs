@@ -1,28 +1,65 @@
-<!-- Archive Page -->
-<p align="center" style="font-size:28px;font-weight:600;margin:10px 0 5px 0;">
-  <pageheading><%= page.title || '归档' %></pageheading>
-</p>
-<hr>
+<!-- 归档 / 分类 / 标签列表页 -->
+<article class="page page-wide-arch">
+  <div class="arch-head">
+    <h1 class="page-title"><%= page.title || '归档' %></h1>
+    <p class="page-lead">
+      写下来的都是实际踩过的：真机调试、数据链路、选型上的取舍。不写没验证过的结论。
+    </p>
+  </div>
+  <img class="arch-hero" src="<%= url_for('/images/site/g1-group.jpg') %>"
+       alt="多台 G1 在展厅内同步执行同一条舞蹈队列" width="2560" height="1440">
 
-<% if (page.posts && page.posts.length > 0) { %>
-  <% page.posts.each(function(post) { %>
-    <p>
-      <a href="<%= url_for(post.path) %>"><heading><%= post.title %></heading></a><br>
-      <span style="color:#999;font-size:14px;"><%= date(post.date, 'YYYY-MM-DD') %></span>
-      <% if (post.categories && post.categories.length) { %>
-         · <span style="color:#6b7280;font-size:14px;"><%= post.categories.map(function(c){return c.name}).join(', ') %></span>
-      <% } %>
-      <br>
-      <%= post.description || '' %>
-    </p>
+  <% var posts = page.posts; %>
+  <% if (posts && posts.length) { %>
+
+  <% var grouped = {}; %>
+  <% var years = []; %>
+  <% posts.each(function(post){ %>
+    <% var y = date(post.date, 'YYYY'); %>
+    <% if (!grouped[y]) { grouped[y] = []; years.push(y); } %>
+    <% grouped[y].push(post); %>
   <% }); %>
+
+  <% years.forEach(function(y){ %>
+  <section class="arch-year">
+    <h2 class="arch-year-h"><%= y %></h2>
+    <ul class="arch-list">
+      <% grouped[y].forEach(function(post){ %>
+      <li class="arch-row">
+        <% if (post.hero) { %>
+        <a class="arch-thumb" href="<%= url_for(post.path) %>" tabindex="-1" aria-hidden="true">
+          <img src="<%= url_for(post.hero) %>" alt="" width="810" height="506" loading="lazy">
+        </a>
+        <% } %>
+        <a href="<%= url_for(post.path) %>">
+          <span class="arch-name"><%= post.title %></span>
+          <span class="arch-meta">
+            <span class="arch-date"><%= date(post.date, 'MM-DD') %></span>
+            <% if (post.categories && post.categories.length) { %>
+            <span class="arch-cat"><%= post.categories.map(function(c){ return c.name }).join(' / ') %></span>
+            <% } %>
+          </span>
+        </a>
+        <% if (post.description) { %>
+        <p class="arch-desc"><%= post.description %></p>
+        <% } %>
+      </li>
+      <% }); %>
+    </ul>
+  </section>
+  <% }); %>
+
   <% if (page.total > 1) { %>
-    <p style="text-align:center;margin-top:20px;">
-      <% if (page.prev) { %><a href="<%= url_for(page.prev_link) %>">← 上一页</a> &nbsp;<% } %>
-      <span style="color:#999;">第 <%= page.current %> / <%= page.total %> 页</span>
-      <% if (page.next) { %>&nbsp; <a href="<%= url_for(page.next_link) %>">下一页 →</a><% } %>
-    </p>
+  <p class="page-meta" style="margin-top:2.5rem;">
+    <% if (page.prev) { %><a href="<%= url_for(page.prev_link) %>">← 上一页</a><% } %>
+    <span><%= page.current %> / <%= page.total %></span>
+    <% if (page.next) { %><a href="<%= url_for(page.next_link) %>">下一页 →</a><% } %>
+  </p>
   <% } %>
-<% } else { %>
-  <p style="color:#999;">暂无文章。</p>
-<% } %>
+
+  <% } else { %>
+  <p class="empty">这里还没有内容。</p>
+  <% } %>
+
+  <p class="page-back"><a class="txtlink" href="<%= url_for('/') %>">← 返回首页</a></p>
+</article>

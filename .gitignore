@@ -5,3 +5,7 @@ themes/butterfly/
 db.json
 .DS_Store
 *.log
+
+# 本地工作区（不参与构建，也不该进仓库）
+.tmp-assets/
+.taste-skill/

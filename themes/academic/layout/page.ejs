@@ -1,12 +1,13 @@
-<!-- Static Page -->
-<p align="center" style="font-size:28px;font-weight:600;margin:10px 0 5px 0;">
-  <pageheading><%= page.title %></pageheading>
-</p>
-<hr>
-<div class="post-content">
-  <%- page.content %>
-</div>
-<hr>
-<p align="center">
-  <a href="/">← 返回首页</a>
-</p>
+<!-- 通用页面 -->
+<article class="page<%- page.page_class ? ' ' + page.page_class : '' %>">
+  <% if (page.title) { %>
+  <h1 class="page-title"><%= page.title %></h1>
+  <% } %>
+  <% if (page.lead) { %><p class="page-lead"><%- page.lead %></p><% } %>
+
+  <div class="post-content">
+    <%- page.content %>
+  </div>
+
+  <p class="page-back"><a class="txtlink" href="<%= url_for('/') %>">← 返回首页</a></p>
+</article>

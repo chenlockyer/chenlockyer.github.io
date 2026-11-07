@@ -1,0 +1,61 @@
+<!-- 项目页：数据全部来自 source/_data/projects.json -->
+<article class="page page-wide">
+  <div class="proj-hero">
+    <div class="proj-hero-copy">
+      <h1 class="page-title">项目</h1>
+      <p class="page-lead">
+        四件事，三种交付形态：卖软件的（群控）、装到本体上的（导览）、
+        训练出来的（运控）、做评测的（MLLM）。下面每张图都是真实界面或真实代码，不是示意图。
+      </p>
+    </div>
+    <img class="proj-hero-shot" src="<%= url_for('/images/site/g1-group.jpg') %>"
+         alt="多台 G1 在展厅内同步执行同一条舞蹈队列" width="2560" height="1440">
+  </div>
+
+  <div class="pcards">
+    <% site.data.projects.forEach(function(p){ %>
+    <article class="pcard">
+      <% if (p.image) { %>
+      <img class="pcard-shot" src="<%= url_for('/images/projects/' + p.image) %>" alt="<%= p.alt %>" width="1200" height="675" loading="lazy">
+      <% } %>
+      <h2 class="pcard-name">
+        <% if (p.href) { %>
+          <a href="<%= p.href %>"<% if (p.external) { %> target="_blank" rel="noopener"<% } %>><%= p.name %></a>
+        <% } else { %><%= p.name %><% } %>
+      </h2>
+      <p class="pcard-kind"><%= p.kind %> · <%= p.year %></p>
+      <p class="pcard-desc"><%= p.desc %></p>
+      <% if (p.detail) { %><p class="pcard-detail"><%= p.detail %></p><% } %>
+      <% if (p.tech && p.tech.length) { %>
+      <p class="pcard-tech">
+        <% p.tech.forEach(function(t){ %><span><%= t %></span><% }); %>
+      </p>
+      <% } %>
+    </article>
+    <% }); %>
+  </div>
+
+  <div class="studio-block">
+    <h2>在做的事</h2>
+    <div class="studio-block-grid">
+      <div>
+        <p>
+          和搭档在做一个面向落地交付的工作室：宇树 G1 / GO2 的场馆导览、舞台动作定制、
+          多机同步与师资培训。硬件是宇树的，我们负责让它在客户的场地上真正跑起来。
+        </p>
+        <p>
+          服务范围、交付流程和实绩在工作室那一页：
+          <a class="txtlink" href="<%= theme.studio.url %>" target="_blank" rel="noopener">
+            去工作室看看
+            <svg viewBox="0 0 14 10" width="13" height="9" aria-hidden="true" focusable="false"><path d="M1 5h11M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </p>
+      </div>
+      <img class="studio-block-shot" src="<%= url_for('/images/site/g1-group.jpg') %>"
+           alt="多台 G1 在展厅内同步执行同一条舞蹈队列" width="2560" height="1440" loading="lazy">
+    </div>
+  </div>
+
+  <p class="page-back"><a class="txtlink" href="<%= url_for('/') %>">← 返回首页</a></p>
+</article>
+
